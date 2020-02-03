@@ -1,0 +1,76 @@
+.menuChanger {
+    text-align: center;
+}
+
+.menuChanger > button {
+    position: absolute;
+    margin: 1em;
+    background-color: #bbb;
+    color: #000;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.menuChanger > button:hover {
+    background-color: #999;
+}
+
+.menuChanger > p {
+    display: inline-block;
+    margin-top: 1em;
+    
+}
+
+.menu {
+    margin-top: 1em;
+    font-family: inherit;
+    text-align: center;
+}
+
+.menu > ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu > ul > li {
+    margin-top: 1em;
+}
+
+.menuBtn {
+    width: 80%;
+    height: 3em;
+    line-height: 3em;
+    border: 1px solid #16182c;
+    border-radius: 0.4em;
+    background-color: #1a0050;
+    color: #f0f0f0;
+    outline: none;
+    -webkit-box-shadow: 2px 7px 17px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 7px 17px -1px rgba(0,0,0,0.75);
+    box-shadow: 2px 7px 17px -1px rgba(0,0,0,0.75);
+}
+
+.menuBtn:hover {
+    background-color: #2b2262;
+}
+
+.menuInputNum {
+    text-align: center;
+    background-color: #1a0050;
+    border: none;
+    color: #f0f0f0;
+    -webkit-box-shadow: 2px 7px 17px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 7px 17px -1px rgba(0,0,0,0.75);
+    box-shadow: 2px 7px 17px -1px rgba(0,0,0,0.75);
+}
+
+.menuInputSelect {
+    -webkit-box-shadow: 2px 7px 17px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 7px 17px -1px rgba(0,0,0,0.75);
+    box-shadow: 2px 7px 17px -1px rgba(0,0,0,0.75);
+}
+
+

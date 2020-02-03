@@ -1,0 +1,53 @@
+body {
+    font-family: 'righteous';
+}
+
+.wrapper {
+    background-color: #282828;
+    height: 100vh;
+}
+
+.menu-layout {
+    top: -100vh;
+    position: absolute;
+    background-color: rgba(158, 158, 158, 0.7);
+    z-index: 3;
+    transition: top 0.7s;
+}
+
+.display-layout {
+    display: grid;
+    height: 100vh;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-buttons {
+    display: flex;
+    justify-content: space-around;
+    z-index: 2;
+}
+
+.mobile-btn {
+    color:white;
+    font-size: 1.2em;
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+    background-color: #282828;
+    line-height: 5em;
+    z-index: 2;
+    border: none;
+}
+
+.menu-show {
+    top: 0;
+}
+
+@media (min-width: 500px) {
+    .menu-layout {
+        top: 0;
+        position: relative;
+    }
+}
