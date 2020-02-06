@@ -1,6 +1,6 @@
 
-function* partRun(elements, algoObject, order=(a)=>a){
-    let generator = algoObject.generator(elements, order);
+function* partRun(elements, algoObject, algoParams){
+    let generator = algoObject.generator(elements, algoParams);
     let result;
     do {
         result = generator.next();
@@ -9,8 +9,8 @@ function* partRun(elements, algoObject, order=(a)=>a){
     return result.value;
 }
 
-function fullRun(elements, algoObject, order=(a)=>a){
-    let generator = algoObject.generator(elements, order);
+function fullRun(elements, algoObject, algoParams){
+    let generator = algoObject.generator(elements, algoParams);
     let result;
     do {
         result = generator.next();

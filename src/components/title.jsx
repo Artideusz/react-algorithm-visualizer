@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { ElementContext } from '../context/elementCtx';
+import { AlgorithmContext } from '../context/algorithmCtx';
 
 function WebsiteTitle(props) {
 
-    let { algorithm } = useContext(ElementContext)
+    let { algorithm } = useContext(AlgorithmContext)
 
     const style = {
         'textAlign': 'center',

@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { ElementContext } from '../context/elementCtx';
+import { AlgorithmContext } from '../context/algorithmCtx';
 import { Button, Modal } from 'react-bootstrap';
 import Prism from 'prismjs';
 import '../css/prism.css';
 
 function Description() {
-    const { algorithm } = useContext(ElementContext);
+    const { algorithm } = useContext(AlgorithmContext);
 
     const [show, setShow] = useState(false);
 

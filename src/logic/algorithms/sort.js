@@ -1,100 +1,106 @@
-import { swap } from '../util.js';
-import React from 'react';
+import { swap } from "../util.js";
+import React from "react";
 // Sorting algorithms must return the array and the active index of the loop
 
-function* bubbleSortGen(obj, type=a=>a){
-    if(!obj) throw new Error('No array passed to sorting generator');
-    let arr = [...obj.array];
-    let size = arr.length;
-    do{
-        let isSwapped = false;
-        for(let i = 0; i < size - 1; i++) {
-            yield {
-                ...obj,
-                array: arr,
-                activeIndexes: [i]
-            };
-            if(0 < type(arr[i]) - type(arr[i+1])){
-                isSwapped = true;
-                swap(arr, i, i+1);
-            }
-        }
-        if(!isSwapped) break;
-        size-=1;
-    } while(size > 1);
+function* bubbleSortGen(obj, type = a => a) {
+	if (!obj) throw new Error("No array passed to sorting generator");
+	let arr = [...obj.array];
+	let size = arr.length;
+	do {
+		let isSwapped = false;
+		for (let i = 0; i < size - 1; i++) {
+			yield {
+				...obj,
+				array: arr,
+				activeIndexes: [i]
+			};
+			if (0 < type(arr[i]) - type(arr[i + 1])) {
+				isSwapped = true;
+				swap(arr, i, i + 1);
+			}
+		}
+		if (!isSwapped) break;
+		size -= 1;
+	} while (size > 1);
 
-    return {
-        ...obj,
-        array: arr,
-        activeIndexes: []
-    };
+	return {
+		...obj,
+		array: arr,
+		activeIndexes: []
+	};
 }
 
-function* selectionSortGen(obj, type=a=>a) {
-    if(!obj) throw new Error('No array passed to sorting generator');
-    let arr = [...obj.array];
-    let size = arr.length;
-    for(let i = 0 ; i < size-1; i++) {
-        let minIndex = i;
-        for(let j = i + 1; j < size; j++) {
-            yield {
-                ...obj,
-                array: arr,
-                activeIndexes: [minIndex, j]
-            }
-            if(0 < type(arr[minIndex]) - type(arr[j])) {
-                minIndex = j;
-            }
-        }
-        if(minIndex !== i) {
-            swap(arr, i, minIndex);
-        }
-    }
-    return {
-        ...obj,
-        array: arr,
-        activeIndexes: []
-    };
+function* selectionSortGen(obj, type = a => a) {
+	if (!obj) throw new Error("No array passed to sorting generator");
+	let arr = [...obj.array];
+	let size = arr.length;
+	for (let i = 0; i < size - 1; i++) {
+		let minIndex = i;
+		for (let j = i + 1; j < size; j++) {
+			yield {
+				...obj,
+				array: arr,
+				activeIndexes: [minIndex, j]
+			};
+			if (0 < type(arr[minIndex]) - type(arr[j])) {
+				minIndex = j;
+			}
+		}
+		if (minIndex !== i) {
+			swap(arr, i, minIndex);
+		}
+	}
+	return {
+		...obj,
+		array: arr,
+		activeIndexes: []
+	};
 }
 
-function* countingSortGen(obj, type=a=>a) {
-    if(!obj) throw new Error('No array passed to sorting generator');
-    // Convert array type to make it easier to count
-    let convArr = obj.array.map(v=>Math.floor(type(v)));
-    let size = convArr.length; // 7 [i = 6] 
-    let max = Math.max(...convArr); // 5
-    let count = Array(max+1).fill(0); // [0, 0, 0, 0, 0, 0]
-    let output = [...obj.array];
-    for(let i = 0; i < max+1; i++) {
-        count[convArr[i]]++;
-    } // [0, 2, 2, 1, 1, 1]
-    for(let j = 1; j < max+1; j++) {
-        count[j]+=count[j-1];
-    } // [0, 2, 4, 5, 6, 7]
-    for(let k = 0; k < size; k++) {
-        yield {
-            ...obj,
-            array: output,
-            activeIndexes: [k, size]
-        }
+function* countingSortGen(obj, type = a => a) {
+	if (!obj) throw new Error("No array passed to sorting generator");
+	// Convert array type to make it easier to count
+	let convArr = obj.array.map(v => Math.floor(type(v)));
+	let size = convArr.length; // 7 [i = 6]
+	let max = Math.max(...convArr); // 5
+	let count = Array(max + 1).fill(0); // [0, 0, 0, 0, 0, 0]
+	let output = [...obj.array];
+	for (let i = 0; i < max + 1; i++) {
+		count[convArr[i]]++;
+	} // [0, 2, 2, 1, 1, 1]
+	for (let j = 1; j < max + 1; j++) {
+		count[j] += count[j - 1];
+	} // [0, 2, 4, 5, 6, 7]
+	for (let k = 0; k < size; k++) {
+		yield {
+			...obj,
+			array: output,
+			activeIndexes: [k, size]
+		};
 
-        output[count[convArr[k]]-1] = obj.array[k];
-        count[convArr[k]]--;
-    } // [1, 1, 2, 2, 3, 4, 5]
-    return {
-        ...obj,
-        array: output,
-        activeIndexes: []
-    }
+		output[count[convArr[k]] - 1] = obj.array[k];
+		count[convArr[k]]--;
+	} // [1, 1, 2, 2, 3, 4, 5]
+	return {
+		...obj,
+		array: output,
+		activeIndexes: []
+	};
 }
 
 const bubble_sort = {
-    id: 0,
-    name: 'Bubble Sort',
-    generator: bubbleSortGen,
-    description: (<div>Bubble Sort is the simplest sorting algorithm and it works by comparing and swapping neighbouring elements when they are in the wrong order. The time complexity of bubble sort is O(n<sup>2</sup>).</div>),
-    descriptionCode: 
-    `function bubbleSort(array) {
+	id: 0,
+	name: "Bubble Sort",
+	type: 'sort',
+	generator: bubbleSortGen,
+	description: (
+		<div>
+			Bubble Sort is the simplest sorting algorithm and it works by comparing
+			and swapping neighbouring elements when they are in the wrong order. The
+			time complexity of bubble sort is O(n<sup>2</sup>).
+		</div>
+	),
+	descriptionCode: `function bubbleSort(array) {
         let resArr = [...array]; // Creates a copy of the original array
         for(let i = 0; i < resArr.length; i++) {
             for(let j = 0; j < resArr.length - i - 1; j++) { // Last element is sorted
@@ -105,15 +111,21 @@ const bubble_sort = {
         }
         return resArr; // Sorted array
     }`
-}
+};
 
 const selection_sort = {
-    id: 1,
-    name: 'Selection Sort',
-    generator: selectionSortGen,
-    description: (<div>Selection Sort sorts an array by repeatedly finding the minimum value and swapping it with the first unsorted value. The time complexity of Selection Sort is O(n<sup>2</sup>).</div>),
-    descriptionCode: 
-    `function selectionSort(array) {
+	id: 1,
+	name: "Selection Sort",
+	type: 'sort',
+	generator: selectionSortGen,
+	description: (
+		<div>
+			Selection Sort sorts an array by repeatedly finding the minimum value and
+			swapping it with the first unsorted value. The time complexity of
+			Selection Sort is O(n<sup>2</sup>).
+		</div>
+	),
+	descriptionCode: `function selectionSort(array) {
         let resArr = [...array]; // Creates a copy of the array
         for(let i = 0; i < resArr.length-1; i++) {
             let minIndex = i; // The index of the minimum value of an element
@@ -128,15 +140,20 @@ const selection_sort = {
         }
         return resArr; // Sorted Array
     }`
-}
+};
 
 const counting_sort = {
-    id: 2,
-    name: 'Counting Sort',
-    generator: countingSortGen,
-    description: (<div>Counting Sort sort an array by counting the number of occurrences of each number in the array. Time Complexity of Counting Sort is O(n+k).</div>),
-    descriptionCode:
-    `function countingSort(array) {
+	id: 2,
+	name: "Counting Sort",
+	type: 'sort',
+	generator: countingSortGen,
+	description: (
+		<div>
+			Counting Sort sort an array by counting the number of occurrences of each
+			number in the array. Time Complexity of Counting Sort is O(n+k).
+		</div>
+	),
+	descriptionCode: `function countingSort(array) {
         let size = array.length; // Length of the array
         let max = Math.max(...array); // Max value for creating the counting array
         let count = Array(max+1).fill(0); // Max+1 <- We are also including zero for counting
@@ -153,12 +170,8 @@ const counting_sort = {
         }
         return output; // Sorted Array
     }`
-}
+};
 
-const Sorts = [
-    bubble_sort,
-    selection_sort,
-    counting_sort
-]
+const Sorts = [bubble_sort, selection_sort, counting_sort];
 
 export default Sorts;

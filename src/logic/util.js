@@ -26,8 +26,8 @@ function maxElementValue(elements) {
     return Math.max(...elements.map(v => v.value));
 }
 
-function singleElementWidth(elements, width) {
-    return (1/elements.length)*width;
+function singleElementWidth(elementsLength, width) {
+    return width/elementsLength;
 }
 
 function swap(elements, i1, i2) {
